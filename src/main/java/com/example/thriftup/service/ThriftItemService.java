@@ -47,7 +47,7 @@ public class ThriftItemService {
         .and(ThriftItemSpecification.hasPriceLessThanEqual(maxPrice))
         .and(ThriftItemSpecification.hasLocation(location))
         .and(ThriftItemSpecification.hasTags(tags));
-    
+
     return repository.findAll(spec);
     }
 }
