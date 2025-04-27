@@ -28,21 +28,6 @@ public class ThriftItemService {
         return repository.findById(id).orElse(null);
     }
     
-    public List<ThriftItem> filterItems(String category, BigDecimal maxPrice, 
-                                       String location, Set<String> tags) {
-        if (category != null && !category.isEmpty()) {
-            return repository.findByCategory(category);
-        } else if (maxPrice != null) {
-            return repository.findByPriceLessThanEqual(maxPrice);
-        } else if (location != null && !location.isEmpty()) {
-            return repository.findByLocation(location);
-        } else if (tags != null && !tags.isEmpty()) {
-            return repository.findByTagsContaining(tags);
-        }
-        
-        return getAllItems();
-    }
-    
     public void deleteItem(Long id) {
         repository.deleteById(id);
     }
@@ -53,5 +38,16 @@ public class ThriftItemService {
             return repository.save(updatedItem);
         }
         return null;
+    }
+    public List<ThriftItem> filterItems(String category, BigDecimal maxPrice, 
+                                   String location, Set<String> tags) {
+    
+    Specification<ThriftItem> spec = Specification.where(
+        ThriftItemSpecification.hasCategory(category))
+        .and(ThriftItemSpecification.hasPriceLessThanEqual(maxPrice))
+        .and(ThriftItemSpecification.hasLocation(location))
+        .and(ThriftItemSpecification.hasTags(tags));
+    
+    return repository.findAll(spec);
     }
 }

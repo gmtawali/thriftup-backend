@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface ThriftItemRepository extends JpaRepository<ThriftItem, Long> {
+public interface ThriftItemRepository extends JpaRepository<ThriftItem, Long>,
+                                        JpaSpecificationExecutor<ThriftItem> {
     List<ThriftItem> findByCategory(String category);
     List<ThriftItem> findByPriceLessThanEqual(BigDecimal maxPrice);
     List<ThriftItem> findByLocation(String location);
