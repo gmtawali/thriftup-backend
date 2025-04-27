@@ -3,6 +3,8 @@ package com.example.thriftup.service;
 import com.example.thriftup.model.ThriftItem;
 import com.example.thriftup.repository.ThriftItemRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.data.jpa.domain.Specification;
+import com.example.thriftup.specification.ThriftItemSpecification
 
 import java.math.BigDecimal;
 import java.util.List;
